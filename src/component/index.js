@@ -1,10 +1,9 @@
-import { useState, useRef } from 'react';
-import { Toolbar } from './Toolbar/Toolbar';
-import { Button } from './Button/Button';
+import { useState, useRef } from "react";
+import { Toolbar } from "./Toolbar/Toolbar";
+import { Button } from "./Button/Button";
+import { PinInput } from "./main";
 
-import { PinInput } from './main';
-
-const initialDigits = ['', '', '', ''];
+const initialDigits = ["", "", "", ""];
 
 export function ImperativeHandler() {
   const [digits, setDigits] = useState(initialDigits);
@@ -18,22 +17,28 @@ export function ImperativeHandler() {
     setDigits(initialDigits);
   };
 
-  const save = () =>{
-    localStorage.setItem('pincode', digits);
-    console.log(localStorage.getItem('pincode'));
+  const save = () => {
+    localStorage.setItem("pincode", digits);
     clear();
 
-    alert('pin-code saved')
-  }
+    alert("pin-code created");
+  };
 
-  const check = ()=>{
-    if(digits.toString() !== localStorage.getItem('pincode')){
-      alert('Incorrect pin!')
+  const check = () => {
+    if (digits.toString() !== localStorage.getItem("pincode")) {
+      alert("Incorrect pin!");
+    } else {
+      alert("Welcome!");
     }
-    else{alert('Welcome!')}
-    clear()
-  }
 
+    clear();
+  };
+
+  const reset = () => {
+    localStorage.removeItem("pincode");
+    clear();
+    alert("Pin-code is deleted!");
+  };
   return (
     <>
       <Toolbar>
@@ -45,6 +50,7 @@ export function ImperativeHandler() {
         <Button text="Clear" onClick={clear} />
         <Button text="Create" onClick={save} />
         <Button text="Enter" onClick={check} />
+        <Button text="Reset" onClick={reset} />
       </Toolbar>
     </>
   );
